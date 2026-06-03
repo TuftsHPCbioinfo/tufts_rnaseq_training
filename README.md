@@ -21,6 +21,40 @@ From the dashboard, choose **nf-core pipelines**, then select the version of the
 
 ![nf-core Dashboard](images/nfcore_dashboard.png)
 
+### Preparing the Sample Sheet
+
+Before submitting the pipeline, you need to create a `samplesheet.csv` file that tells nf-core/rnaseq where your FASTQ files are and how they are organized. Place this file in your working directory.
+
+The sample sheet is a comma-separated file with the following columns:
+
+| Column | Description |
+| --- | --- |
+| `sample` | Sample name. Replicates of the same sample should have the same name — the pipeline will automatically merge them |
+| `fastq_1` | Full path to the Read 1 (forward) FASTQ file |
+| `fastq_2` | Full path to the Read 2 (reverse) FASTQ file. Leave empty for single-end data |
+| `strandedness` | Library strandedness: `auto`, `forward`, `reverse`, or `unstranded` |
+
+Here is an example for paired-end data with two conditions (PRMT5kd and GFPkd):
+
+```csv
+sample,fastq_1,fastq_2,strandedness
+PRMT5kd_rep1,/path/to/PRMT5kd_rep1_R1.fastq.gz,/path/to/PRMT5kd_rep1_R2.fastq.gz,auto
+PRMT5kd_rep2,/path/to/PRMT5kd_rep2_R1.fastq.gz,/path/to/PRMT5kd_rep2_R2.fastq.gz,auto
+PRMT5kd_rep3,/path/to/PRMT5kd_rep3_R1.fastq.gz,/path/to/PRMT5kd_rep3_R2.fastq.gz,auto
+GFPkd_rep1,/path/to/GFPkd_rep1_R1.fastq.gz,/path/to/GFPkd_rep1_R2.fastq.gz,auto
+GFPkd_rep2,/path/to/GFPkd_rep2_R1.fastq.gz,/path/to/GFPkd_rep2_R2.fastq.gz,auto
+GFPkd_rep3,/path/to/GFPkd_rep3_R1.fastq.gz,/path/to/GFPkd_rep3_R2.fastq.gz,auto
+```
+
+> **Tip:** Setting `strandedness` to `auto` lets Salmon infer the library type automatically. This is recommended unless you know your library prep protocol.
+
+For single-end data, simply leave the `fastq_2` column empty:
+
+```csv
+sample,fastq_1,fastq_2,strandedness
+sample1,/path/to/sample1_R1.fastq.gz,,auto
+```
+
 ### Pipeline Arguments
 
 Fill in the following arguments on the Open OnDemand submission form:
@@ -45,15 +79,14 @@ Fill in the following arguments on the Open OnDemand submission form:
 
 > Pre-built references and indices for human are available on the cluster so you don't need to download or build them yourself.
 
-| Parameter                | Value                                                                                                         | Description                                             |
-| ------------------------ | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------- |
-| fasta                    | `/cluster/tufts/biocontainers/datasets/references/gencodes/human/GRCh38.primary_assembly.genome.fa`           | FASTA sequence of the reference genome                  |
-| gtf                      | `/cluster/tufts/biocontainers/datasets/references/gencodes/human/gencode.v49.primary_assembly.annotation.gtf` | Gene annotation file in GTF format                      |
-| star_index               | `/cluster/tufts/biocontainers/datasets/references/gencodes/human/index/star`                                  | Pre-built STAR index                                    |
-| salmon_index             | `/cluster/tufts/biocontainers/datasets/references/gencodes/human/index/salmon`                                | Pre-built Salmon index                                  |
-| gencode                  | `true`                                                                                                        | Use GENCODE gene annotation format                      |
-| gtf_group_features       | `gene_id`                                                                                                     | Group features by gene_id for gene-level quantification |
-| featurecounts_group_type | `gene_biotype`                                                                                                | Group type attribute for featureCounts                  |
+| Parameter                | Value                                                                                                         | Description                            |
+| ------------------------ | ------------------------------------------------------------------------------------------------------------- | -------------------------------------- |
+| fasta                    | `/cluster/tufts/biocontainers/datasets/references/gencodes/human/GRCh38.primary_assembly.genome.fa`           | FASTA sequence of the reference genome |
+| gtf                      | `/cluster/tufts/biocontainers/datasets/references/gencodes/human/gencode.v49.primary_assembly.annotation.gtf` | Gene annotation file in GTF format     |
+| star_index               | `/cluster/tufts/biocontainers/datasets/references/gencodes/human/index/star`                                  | Pre-built STAR index                   |
+| salmon_index             | `/cluster/tufts/biocontainers/datasets/references/gencodes/human/index/salmon`                                | Pre-built Salmon index                 |
+| gencode                  | `true`                                                                                                        | Use GENCODE gene annotation format     |
+| featurecounts_group_type | `gene_type`                                                                                                   | Group type attribute for featureCounts |
 
 #### Alignment options
 
@@ -76,6 +109,9 @@ After filling in the form, click the **Submit** button at the bottom of the page
 
 From **My Interactive Sessions** in the Open OnDemand dashboard, you can monitor the status of your job. Click the link next to **Session ID** to find the `output.log` file, which contains the Nextflow execution logs.
 
+![Job Monitoring](images/output_log.png)
+
 ### Resuming a Failed Job
 
 If your job fails for any reason, you can resume it without losing progress. Check **Resume previous run** at the bottom of the submission form. This will allow you to select the previous run and resume from where it left off.
+![Resume Job](images/resume.png)
