@@ -21,18 +21,38 @@ From the dashboard, choose **nf-core pipelines**, then select the version of the
 
 ![nf-core Dashboard](images/nfcore_dashboard.png)
 
+### Setting up Your Working Directory
+
+Before submitting the pipeline, you need to set up a working directory where your input files are located and where the output will be written. You can create this directory using the terminal in Open OnDemand.
+Click **Clusters** in the top menu, then select **>\_Tufts HPC Shell Access**. This will open a terminal session on the cluster.
+![Terminal Access](images/ondmeand_shell.png)
+In the terminal, create a working directory and navigate into it:
+
+```bash
+mkdir -p /cluster/tufts/iyerlab/$USER/rnaseq_workshop
+cd /cluster/tufts/iyerlab/$USER/rnaseq_workshop
+```
+
+Then copy the prepared **samplesheet.csv** to your working directory:
+
+```bash
+cp /cluster/tufts/workshop/public/2026summer/iyerlab/part1/samplesheet.csv .
+## confirm the file is there
+ls -l samplesheet.csv
+```
+
 ### Preparing the Sample Sheet
 
 Before submitting the pipeline, you need to create a `samplesheet.csv` file that tells nf-core/rnaseq where your FASTQ files are and how they are organized. Place this file in your working directory.
 
 The sample sheet is a comma-separated file with the following columns:
 
-| Column | Description |
-| --- | --- |
-| `sample` | Sample name. Replicates of the same sample should have the same name — the pipeline will automatically merge them |
-| `fastq_1` | Full path to the Read 1 (forward) FASTQ file |
-| `fastq_2` | Full path to the Read 2 (reverse) FASTQ file. Leave empty for single-end data |
-| `strandedness` | Library strandedness: `auto`, `forward`, `reverse`, or `unstranded` |
+| Column         | Description                                                                                                       |
+| -------------- | ----------------------------------------------------------------------------------------------------------------- |
+| `sample`       | Sample name. Replicates of the same sample should have the same name — the pipeline will automatically merge them |
+| `fastq_1`      | Full path to the Read 1 (forward) FASTQ file                                                                      |
+| `fastq_2`      | Full path to the Read 2 (reverse) FASTQ file. Leave empty for single-end data                                     |
+| `strandedness` | Library strandedness: `auto`, `forward`, `reverse`, or `unstranded`                                               |
 
 Here is an example for paired-end data with two conditions (PRMT5kd and GFPkd):
 
@@ -107,7 +127,19 @@ After filling in the form, click the **Submit** button at the bottom of the page
 
 ### Monitoring Your Job
 
-From **My Interactive Sessions** in the Open OnDemand dashboard, you can monitor the status of your job. Click the link next to **Session ID** to find the `output.log` file, which contains the Nextflow execution logs.
+From **My Interactive Sessions** in the Open OnDemand dashboard, you can monitor the status of your job.
+![My Interactive Sessions](images/running_status.png)
+
+### Active jobs
+
+Our cluster has a home-built job monitoring tool that provides detailed information about your running jobs and history jobs, including resource usage and logs.
+Click **Jobs** in the top menu, then select **Active Jobs**. This will open the job monitoring interface.
+
+![Active Jobs](images/active_jobs.png)
+
+### Logs are the key to debugging any issues that arise during pipeline execution.
+
+Click the link next to **Session ID** to find the `output.log` file, which contains the Nextflow execution logs.
 
 ![Job Monitoring](images/output_log.png)
 
