@@ -55,16 +55,28 @@ The sample sheet is a comma-separated file with the following columns:
 | `fastq_2`      | Full path to the Read 2 (reverse) FASTQ file. Leave empty for single-end data                                     |
 | `strandedness` | Library strandedness: `auto`, `forward`, `reverse`, or `unstranded`                                               |
 
-Here is an example for paired-end data with two conditions (PRMT5kd and GFPkd):
+Here is an example for paired-end data with three conditions (D0, D13, D28) and three replicates each:
 
 ```csv
 sample,fastq_1,fastq_2,strandedness
-PRMT5kd_rep1,/path/to/PRMT5kd_rep1_R1.fastq.gz,/path/to/PRMT5kd_rep1_R2.fastq.gz,auto
-PRMT5kd_rep2,/path/to/PRMT5kd_rep2_R1.fastq.gz,/path/to/PRMT5kd_rep2_R2.fastq.gz,auto
-PRMT5kd_rep3,/path/to/PRMT5kd_rep3_R1.fastq.gz,/path/to/PRMT5kd_rep3_R2.fastq.gz,auto
-GFPkd_rep1,/path/to/GFPkd_rep1_R1.fastq.gz,/path/to/GFPkd_rep1_R2.fastq.gz,auto
-GFPkd_rep2,/path/to/GFPkd_rep2_R1.fastq.gz,/path/to/GFPkd_rep2_R2.fastq.gz,auto
-GFPkd_rep3,/path/to/GFPkd_rep3_R1.fastq.gz,/path/to/GFPkd_rep3_R2.fastq.gz,auto
+D0_REP1,/cluster/tufts/workshop/public/2026summer/iyerlab/fastq/SRX8527953_SRR11994181_1.fastq.gz,/cluster/tufts/workshop/public/2026summer/iyerlab/fastq/SRX8527953_SRR11994181_2.fastq.gz,a
+uto
+D0_REP2,/cluster/tufts/workshop/public/2026summer/iyerlab/fastq/SRX8527954_SRR11994180_1.fastq.gz,/cluster/tufts/workshop/public/2026summer/iyerlab/fastq/SRX8527954_SRR11994180_2.fastq.gz,a
+uto
+D0_REP3,/cluster/tufts/workshop/public/2026summer/iyerlab/fastq/SRX8527960_SRR11994174_1.fastq.gz,/cluster/tufts/workshop/public/2026summer/iyerlab/fastq/SRX8527960_SRR11994174_2.fastq.gz,a
+uto
+D13_REP1,/cluster/tufts/workshop/public/2026summer/iyerlab/fastq/SRX8527964_SRR11994170_1.fastq.gz,/cluster/tufts/workshop/public/2026summer/iyerlab/fastq/SRX8527964_SRR11994170_2.fastq.gz,
+auto
+D13_REP2,/cluster/tufts/workshop/public/2026summer/iyerlab/fastq/SRX8527965_SRR11994169_1.fastq.gz,/cluster/tufts/workshop/public/2026summer/iyerlab/fastq/SRX8527965_SRR11994169_2.fastq.gz,
+auto
+D13_REP3,/cluster/tufts/workshop/public/2026summer/iyerlab/fastq/SRX8527966_SRR11994168_1.fastq.gz,/cluster/tufts/workshop/public/2026summer/iyerlab/fastq/SRX8527966_SRR11994168_2.fastq.gz,
+auto
+D28_REP1,/cluster/tufts/workshop/public/2026summer/iyerlab/fastq/SRX8527957_SRR11994177_1.fastq.gz,/cluster/tufts/workshop/public/2026summer/iyerlab/fastq/SRX8527957_SRR11994177_2.fastq.gz,
+auto
+D28_REP2,/cluster/tufts/workshop/public/2026summer/iyerlab/fastq/SRX8527958_SRR11994176_1.fastq.gz,/cluster/tufts/workshop/public/2026summer/iyerlab/fastq/SRX8527958_SRR11994176_2.fastq.gz,
+auto
+D28_REP3,/cluster/tufts/workshop/public/2026summer/iyerlab/fastq/SRX8527959_SRR11994175_1.fastq.gz,/cluster/tufts/workshop/public/2026summer/iyerlab/fastq/SRX8527959_SRR11994175_2.fastq.gz,
+auto
 ```
 
 > **Tip:** Setting `strandedness` to `auto` lets Salmon infer the library type automatically. This is recommended unless you know your library prep protocol.
