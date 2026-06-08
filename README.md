@@ -25,7 +25,8 @@ From the dashboard, choose **nf-core pipelines**, then select the version of the
 
 Before submitting the pipeline, you need to set up a working directory where your input files are located and where the output will be written. You can create this directory using the terminal in Open OnDemand.
 Click **Clusters** in the top menu, then select **>\_Tufts HPC Shell Access**. This will open a terminal session on the cluster.
-![Terminal Access](images/ondmeand_shell.png)
+![Terminal Access](images/ondemand_shell.png)
+
 In the terminal, create a working directory and navigate into it:
 
 ```bash
