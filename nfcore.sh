@@ -11,4 +11,4 @@
 
 module load nextflow
 export NXF_SINGULARITY_CACHEDIR=/cluster/tufts/apps/container/biocontainers/nf-core/singularity-images/
-nextflow run /cluster/tufts/apps/container/biocontainers/nf-core/pipelines/nf-core-rnaseq/3.26.0/3_26_0/ -params-file nf-params.json 
+nextflow run /cluster/tufts/apps/container/biocontainers/nf-core/pipelines/nf-core-rnaseq/3.26.0/3_26_0/ -profile tufts -params-file nf-params.json 
